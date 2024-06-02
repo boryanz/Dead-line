@@ -21,8 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -34,7 +36,7 @@ import java.util.Locale
 
 fun NavGraphBuilder.deadlineDetailsScreen() {
   composable<Route.DeadlineDetails> {
-
+    DeadlineDetailsScreen()
   }
 }
 
@@ -64,7 +66,7 @@ fun DeadlineContent(
     modifier = Modifier
       .fillMaxSize()
       .padding(paddingValues)
-      .padding(13.dp),
+      .padding(horizontal = 12.dp),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Top
   ) {
@@ -87,7 +89,6 @@ fun DeadlineContent(
 @Composable
 fun TimeBoxCard(modifier: Modifier = Modifier) {
   Surface(
-    color = MaterialTheme.colorScheme.onSurface,
     shape = RoundedCornerShape(10.dp)
   ) {
     Box(
@@ -144,17 +145,17 @@ fun TimerBoxDetails(
     Surface(
       shape = RoundedCornerShape(10.dp),
       border = BorderStroke(1.dp, color = Color.Gray),
-      color = MaterialTheme.colorScheme.onSurface
     ) {
       Box(
         modifier = modifier
-          .width(70.dp)
+          .width(80.dp)
           .height(100.dp),
         contentAlignment = Alignment.Center
       ) {
         Text(
           text = time.uppercase(Locale.getDefault()),
-          style = MaterialTheme.typography.headlineLarge,
+          fontSize = 45.sp,
+          fontWeight = FontWeight.ExtraBold,
           color = MaterialTheme.colorScheme.primary
         )
       }

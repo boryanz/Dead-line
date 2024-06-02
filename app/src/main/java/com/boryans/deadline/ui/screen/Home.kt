@@ -19,15 +19,22 @@ import com.boryans.deadline.ui.components.AppBar
 import com.boryans.deadline.ui.components.DeadlineItem
 import com.boryans.deadline.ui.theme.DeadlineTheme
 
-fun NavGraphBuilder.homeScreen(onNavigateToAddDeadline: () -> Unit) {
+fun NavGraphBuilder.homeScreen(
+  onNavigateToAddDeadline: () -> Unit,
+  onNavigateToDeadlineDetails: () -> Unit,
+) {
   composable<Route.Home> {
-    HomeScreen(onNavigateToAddDeadline = onNavigateToAddDeadline)
+    HomeScreen(
+      onNavigateToAddDeadline = onNavigateToAddDeadline,
+      onNavigateToDeadlineDetails = onNavigateToDeadlineDetails
+    )
   }
 }
 
 @Composable
 fun HomeScreen(
   onNavigateToAddDeadline: () -> Unit,
+  onNavigateToDeadlineDetails: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
   Surface {
@@ -50,7 +57,7 @@ fun HomeScreen(
           .fillMaxSize()
           .padding(paddingValues)
       ) {
-        HomeContent()
+        HomeContent(onDeadlineItemClick = onNavigateToDeadlineDetails)
       }
     }
   }
@@ -58,10 +65,15 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeContent() {
+fun HomeContent(
+  onDeadlineItemClick: () -> Unit,
+) {
   LazyColumn {
     items(5) {
-      DeadlineItem(deadline = dummyDeadline)
+      DeadlineItem(
+        deadline = dummyDeadline,
+        onDeadlineItemClick = onDeadlineItemClick
+      )
     }
   }
 }
@@ -71,7 +83,7 @@ fun HomeContent() {
 @Composable
 private fun HomePreview() {
   DeadlineTheme {
-    HomeScreen(onNavigateToAddDeadline = { /*TODO*/ })
+    HomeScreen(onNavigateToAddDeadline = { /*TODO*/ }, onNavigateToDeadlineDetails = {})
   }
 }
 

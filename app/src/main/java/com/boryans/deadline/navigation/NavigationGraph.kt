@@ -8,6 +8,7 @@ import com.boryans.deadline.ui.screen.addDeadlineScreen
 import com.boryans.deadline.ui.screen.deadlineDetailsScreen
 import com.boryans.deadline.ui.screen.homeScreen
 import com.boryans.deadline.ui.screen.navigateToAddDeadlineScreen
+import com.boryans.deadline.ui.screen.navigateToDeadlineDetails
 
 @Composable
 fun DeadlineNavigationGraph(
@@ -15,7 +16,8 @@ fun DeadlineNavigationGraph(
 ) {
   NavHost(navController = navController, startDestination = Route.Home) {
     homeScreen(
-      onNavigateToAddDeadline = { navController.navigateToAddDeadlineScreen() }
+      onNavigateToAddDeadline = { navController.navigateToAddDeadlineScreen() },
+      onNavigateToDeadlineDetails = {navController.navigateToDeadlineDetails("12")}
     )
     addDeadlineScreen()
     deadlineDetailsScreen()
