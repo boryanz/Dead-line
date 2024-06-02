@@ -38,7 +38,7 @@ fun DeadlineItem(
   Box(
     modifier = modifier
       .fillMaxWidth()
-      .padding(6.dp)
+      .padding(horizontal = 12.dp, vertical = 6.dp)
       .height(80.dp)
       .clip(RoundedCornerShape(6.dp))
       .background(color = MaterialTheme.colorScheme.onSurface),
@@ -65,7 +65,7 @@ fun DeadlineItem(
               .height(14.dp),
             imageVector = Icons.Default.DateRange,
             contentDescription = "Date",
-            tint = MaterialTheme.colorScheme.secondary
+            tint = MaterialTheme.colorScheme.primary
           )
           Spacer(modifier = Modifier.width(4.dp))
           Text(
@@ -104,7 +104,8 @@ fun TimeBox(
   Column(horizontalAlignment = Alignment.CenterHorizontally) {
     Surface(
       shape = RoundedCornerShape(6.dp),
-      border = BorderStroke(1.dp, color = Color.Gray)
+      border = BorderStroke(1.dp, color = Color.Gray),
+      color = MaterialTheme.colorScheme.onSurface
     ) {
       Box(
         modifier = modifier
@@ -115,7 +116,7 @@ fun TimeBox(
         Text(
           text = time.uppercase(Locale.getDefault()),
           style = MaterialTheme.typography.headlineMedium,
-          color = MaterialTheme.colorScheme.secondary
+          color = MaterialTheme.colorScheme.primary
         )
       }
     }

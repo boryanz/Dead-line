@@ -8,6 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -16,6 +17,7 @@ import com.boryans.deadline.navigation.Route
 import com.boryans.deadline.ui.components.AddDeadlineFAB
 import com.boryans.deadline.ui.components.AppBar
 import com.boryans.deadline.ui.components.DeadlineItem
+import com.boryans.deadline.ui.theme.DeadlineTheme
 
 fun NavGraphBuilder.homeScreen(onNavigateToAddDeadline: () -> Unit) {
   composable<Route.Home> {
@@ -58,9 +60,18 @@ fun HomeScreen(
 @Composable
 fun HomeContent() {
   LazyColumn {
-    items(20) {
+    items(5) {
       DeadlineItem(deadline = dummyDeadline)
     }
+  }
+}
+
+
+@Preview
+@Composable
+private fun HomePreview() {
+  DeadlineTheme {
+    HomeScreen(onNavigateToAddDeadline = { /*TODO*/ })
   }
 }
 
