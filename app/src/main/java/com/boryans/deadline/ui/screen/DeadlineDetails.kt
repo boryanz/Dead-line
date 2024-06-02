@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -29,7 +30,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.boryans.deadline.navigation.Route
-import com.boryans.deadline.ui.components.AppBar
 import com.boryans.deadline.ui.components.DeadlineButton
 import com.boryans.deadline.ui.theme.DeadlineTheme
 import java.util.Locale
@@ -45,11 +45,7 @@ fun DeadlineDetailsScreen(
   modifier: Modifier = Modifier,
 ) {
   Surface {
-    Scaffold(
-      topBar = {
-        AppBar(title = "Deadline in", style = MaterialTheme.typography.headlineMedium)
-      }
-    ) { paddingValues ->
+    Scaffold { paddingValues ->
       Surface(modifier = modifier.fillMaxSize()) {
         DeadlineContent(paddingValues = paddingValues, onClick = {})
       }
@@ -94,7 +90,7 @@ fun TimeBoxCard(modifier: Modifier = Modifier) {
     Box(
       modifier = modifier
         .padding(16.dp)
-        .height(200.dp)
+        .wrapContentSize()
     ) {
       Column(
         verticalArrangement = Arrangement.Center,
@@ -148,13 +144,13 @@ fun TimerBoxDetails(
     ) {
       Box(
         modifier = modifier
-          .width(80.dp)
-          .height(100.dp),
+          .width(110.dp)
+          .height(140.dp),
         contentAlignment = Alignment.Center
       ) {
         Text(
           text = time.uppercase(Locale.getDefault()),
-          fontSize = 45.sp,
+          fontSize = 70.sp,
           fontWeight = FontWeight.ExtraBold,
           color = MaterialTheme.colorScheme.primary
         )
@@ -163,7 +159,7 @@ fun TimerBoxDetails(
     Spacer(modifier = Modifier.height(3.dp))
     Text(
       text = title.uppercase(Locale.getDefault()),
-      style = MaterialTheme.typography.titleMedium,
+      style = MaterialTheme.typography.headlineMedium,
       color = Color.Gray,
     )
   }

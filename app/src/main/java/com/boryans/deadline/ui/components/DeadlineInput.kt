@@ -2,6 +2,7 @@ package com.boryans.deadline.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -34,14 +35,10 @@ fun DeadlineInput(
     )
     Spacer(modifier = Modifier.height(3.dp))
     OutlinedTextField(
-      modifier = modifier,
+      modifier = modifier.fillMaxWidth(),
       value = value,
       maxLines = maxLines,
       onValueChange = onValueChange,
-      colors = TextFieldDefaults.colors(
-        unfocusedContainerColor = MaterialTheme.colorScheme.onSurface,
-        focusedContainerColor = MaterialTheme.colorScheme.onSurface,
-      )
     )
   }
 }
