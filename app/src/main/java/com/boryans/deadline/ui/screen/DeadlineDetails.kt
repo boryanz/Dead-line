@@ -22,7 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,6 +32,7 @@ import androidx.navigation.compose.composable
 import com.boryans.deadline.navigation.Route
 import com.boryans.deadline.ui.components.DeadlineButton
 import com.boryans.deadline.ui.theme.DeadlineTheme
+import com.boryans.deadline.ui.theme.bigShouldersDisplayBlack
 import java.util.Locale
 
 fun NavGraphBuilder.deadlineDetailsScreen() {
@@ -128,6 +129,9 @@ fun TimerRowDetails(modifier: Modifier = Modifier) {
     TimerBoxDetails(title = "hours", time = "12")
     Spacer(modifier = Modifier.width(8.dp))
     TimerBoxDetails(title = "mins", time = "45")
+    Spacer(modifier = Modifier.width(8.dp))
+    TimerBoxDetails(title = "sec", time = "45")
+
   }
 }
 
@@ -144,15 +148,16 @@ fun TimerBoxDetails(
     ) {
       Box(
         modifier = modifier
-          .width(110.dp)
-          .height(140.dp),
+          .wrapContentSize()
+          .padding(12.dp),
         contentAlignment = Alignment.Center
       ) {
         Text(
           text = time.uppercase(Locale.getDefault()),
-          fontSize = 70.sp,
-          fontWeight = FontWeight.ExtraBold,
-          color = MaterialTheme.colorScheme.primary
+          fontSize = 45.sp,
+          fontFamily = bigShouldersDisplayBlack,
+          color = MaterialTheme.colorScheme.primary,
+          textAlign = TextAlign.Center
         )
       }
     }

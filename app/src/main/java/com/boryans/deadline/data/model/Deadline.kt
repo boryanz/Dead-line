@@ -6,4 +6,5 @@ data class Deadline(
   val days: String,
   val hours: String,
   val minutes: String,
+  val seconds: String? = null,
 )

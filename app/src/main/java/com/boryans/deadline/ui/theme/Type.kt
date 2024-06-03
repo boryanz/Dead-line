@@ -2,10 +2,12 @@ package com.boryans.deadline.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.boryans.deadline.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -31,7 +33,7 @@ val Typography = Typography(
   headlineSmall = TextStyle(
     fontFamily = FontFamily.Default,
     fontWeight = FontWeight.Bold,
-    fontSize = 12.sp,
+    fontSize = 16.sp,
     fontStyle = FontStyle.Normal,
   ),
   bodySmall = TextStyle(
@@ -63,4 +65,8 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val bigShouldersDisplayBlack = FontFamily(
+  Font(R.font.big_shoulders_display_bold, FontWeight.Black)
 )

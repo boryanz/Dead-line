@@ -1,7 +1,6 @@
 package com.boryans.deadline.ui.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,9 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.boryans.deadline.data.model.Deadline
 import com.boryans.deadline.data.model.dummyDeadline
 import com.boryans.deadline.ui.theme.DeadlineTheme
+import com.boryans.deadline.ui.theme.bigShouldersDisplayBlack
 import java.util.Locale
 
 @Composable
@@ -41,7 +38,6 @@ fun DeadlineItem(
       .fillMaxWidth()
       .padding(horizontal = 12.dp, vertical = 6.dp)
       .height(80.dp)
-      .border(border = BorderStroke(1.dp, color = Color.Gray), shape = RoundedCornerShape(8.dp))
       .clickable { onDeadlineItemClick() },
     contentAlignment = Alignment.Center,
   ) {
@@ -55,26 +51,15 @@ fun DeadlineItem(
       Column(horizontalAlignment = Alignment.Start) {
         Text(
           text = deadline.title,
-          style = MaterialTheme.typography.headlineMedium,
-          color = Color.White
+          style = MaterialTheme.typography.headlineSmall,
+          color = Color.White,
         )
         Spacer(modifier = Modifier.height(4.dp))
-        Row(horizontalArrangement = Arrangement.Start) {
-          Icon(
-            modifier = Modifier
-              .width(14.dp)
-              .height(14.dp),
-            imageVector = Icons.Default.DateRange,
-            contentDescription = "Date",
-            tint = MaterialTheme.colorScheme.primary
-          )
-          Spacer(modifier = Modifier.width(4.dp))
-          Text(
-            text = "December 24th, 2025",
-            style = MaterialTheme.typography.bodySmall,
-            color = Color.Gray
-          )
-        }
+        Text(
+          text = "December 24th, 2025",
+          style = MaterialTheme.typography.bodySmall,
+          color = Color.Gray
+        )
       }
       Spacer(modifier = Modifier.width(12.dp))
       TimeBoxRow(deadline)
@@ -116,7 +101,8 @@ fun TimeBox(
         Text(
           text = time.uppercase(Locale.getDefault()),
           style = MaterialTheme.typography.headlineMedium,
-          color = MaterialTheme.colorScheme.primary
+          color = MaterialTheme.colorScheme.primary,
+          fontFamily = bigShouldersDisplayBlack
         )
       }
     }
