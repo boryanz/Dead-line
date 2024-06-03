@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,30 +36,22 @@ fun DeadlineItem(
   Box(
     modifier = modifier
       .fillMaxWidth()
-      .padding(horizontal = 12.dp, vertical = 6.dp)
+      .padding(horizontal = 12.dp)
       .height(80.dp)
       .clickable { onDeadlineItemClick() },
     contentAlignment = Alignment.Center,
   ) {
     Row(
-      modifier = modifier
-        .fillMaxWidth()
-        .padding(12.dp),
+      modifier = modifier.fillMaxWidth(),
       horizontalArrangement = Arrangement.SpaceAround,
       verticalAlignment = Alignment.CenterVertically
     ) {
-      Column(horizontalAlignment = Alignment.Start) {
-        Text(
-          text = deadline.title,
-          style = MaterialTheme.typography.headlineSmall,
-          color = Color.White,
-        )
+      Column(
+        horizontalAlignment = Alignment.Start
+      ) {
+        Text.DefaultLarge(text = deadline.title)
         Spacer(modifier = Modifier.height(4.dp))
-        Text(
-          text = "December 24th, 2025",
-          style = MaterialTheme.typography.bodySmall,
-          color = Color.Gray
-        )
+        Text.Default(text = deadline.timestamp, textColor = Color.Gray)
       }
       Spacer(modifier = Modifier.width(12.dp))
       TimeBoxRow(deadline)
@@ -95,22 +87,21 @@ fun TimeBox(
       Box(
         modifier = modifier
           .width(40.dp)
-          .height(40.dp),
+          .wrapContentHeight()
+          .padding(4.dp),
         contentAlignment = Alignment.Center
       ) {
-        Text(
-          text = time.uppercase(Locale.getDefault()),
-          style = MaterialTheme.typography.headlineMedium,
-          color = MaterialTheme.colorScheme.primary,
-          fontFamily = bigShouldersDisplayBlack
+        Text.HeadlineSmall(
+          text = time,
+          fontFamily = bigShouldersDisplayBlack,
+          textColor = MaterialTheme.colorScheme.primary
         )
       }
     }
     Spacer(modifier = Modifier.height(3.dp))
-    Text(
+    Text.HeadlineExtraSmall(
       text = title.uppercase(Locale.getDefault()),
-      style = MaterialTheme.typography.titleMedium,
-      color = Color.Gray,
+      textColor = Color.Gray
     )
   }
 
