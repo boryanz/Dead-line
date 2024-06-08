@@ -1,6 +1,7 @@
 package com.boryans.deadline.ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,13 +37,16 @@ fun DeadlineItem(
   Box(
     modifier = modifier
       .fillMaxWidth()
-      .padding(horizontal = 12.dp)
-      .height(80.dp)
+      .wrapContentHeight()
+      .padding(horizontal = 6.dp, vertical = 3.dp)
+      .border(border = BorderStroke(1.dp, Color.Gray), shape = RoundedCornerShape(8.dp))
       .clickable { onDeadlineItemClick() },
     contentAlignment = Alignment.Center,
   ) {
     Row(
-      modifier = modifier.fillMaxWidth(),
+      modifier = modifier
+        .fillMaxWidth()
+        .padding(12.dp),
       horizontalArrangement = Arrangement.SpaceAround,
       verticalAlignment = Alignment.CenterVertically
     ) {

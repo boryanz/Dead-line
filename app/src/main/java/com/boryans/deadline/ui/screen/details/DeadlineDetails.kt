@@ -1,4 +1,4 @@
-package com.boryans.deadline.ui.screen
+package com.boryans.deadline.ui.screen.details
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
