@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.boryans.deadline.ui.components.DeadlineButton
+import com.boryans.deadline.ui.components.DeadlineDateInput
 import com.boryans.deadline.ui.components.DeadlineInput
 
 @Composable
@@ -28,7 +29,7 @@ fun AddDeadlineContent(
   ) {
     DeadlineInput(labelText = "Title", value = uiState.title, onValueChange = { onTitleInput(it) })
     Spacer(modifier = Modifier.height(8.dp))
-    DeadlineInput(labelText = "Deadline", value = uiState.date, onValueChange = { onDateInput(it) })
+    DeadlineDateInput(onConfirmDate = { onDateInput(it) })
     Spacer(modifier = Modifier.height(8.dp))
     DeadlineInput(
       modifier = Modifier.height(200.dp),

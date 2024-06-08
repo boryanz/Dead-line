@@ -55,7 +55,7 @@ fun DeadlineItem(
       ) {
         Text.DefaultLarge(text = deadline.title)
         Spacer(modifier = Modifier.height(4.dp))
-        Text.Default(text = deadline.timestamp, textColor = Color.Gray)
+        Text.Default(text = deadline.fullDate, textColor = Color.Gray)
       }
       Spacer(modifier = Modifier.width(12.dp))
       TimeBoxRow(deadline)
@@ -69,11 +69,11 @@ fun TimeBoxRow(deadline: Deadline) {
   Row(
     horizontalArrangement = Arrangement.Center
   ) {
-    TimeBox(title = "days", time = deadline.days)
+    TimeBox(title = "days", time = deadline.daysRemaining)
     Spacer(modifier = Modifier.width(8.dp))
-    TimeBox(title = "hours", time = deadline.hours)
+    TimeBox(title = "hours", time = deadline.hoursRemaining)
     Spacer(modifier = Modifier.width(8.dp))
-    TimeBox(title = "mins", time = deadline.minutes)
+    TimeBox(title = "mins", time = deadline.minutesRemaining)
   }
 }
 
@@ -92,7 +92,7 @@ fun TimeBox(
         modifier = modifier
           .width(40.dp)
           .wrapContentHeight()
-          .padding(4.dp),
+          .padding(bottom = 4.dp),
         contentAlignment = Alignment.Center
       ) {
         Text.HeadlineSmall(

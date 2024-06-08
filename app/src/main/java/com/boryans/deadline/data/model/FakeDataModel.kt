@@ -2,8 +2,8 @@ package com.boryans.deadline.data.model
 
 val dummyDeadline = Deadline(
   title = "Coding project",
-  timestamp = "12.07.2024",
-  days = "64",
-  hours = "17",
-  minutes = "55"
+  fullDate = "12.07.2024",
+  daysRemaining = "64",
+  hoursRemaining = "17",
+  minutesRemaining = "55"
 )

@@ -69,10 +69,11 @@ fun DeadlineContent(
     TimeBoxCard()
     Spacer(modifier = Modifier.height(20.dp))
     Text.Default(
-      text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
-        "Nulla interdum lectus mauris, a ullamcorper diamat. \n" +
-        "Praesent ut lectus sit amet enim varius convallis. \n" +
-        "Aenean interdum elementum quam vitae rhoncus.",
+      modifier = Modifier.padding(horizontal = 12.dp),
+      text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
+        " Nulla interdum lectus mauris, a ullamcorper diamat." +
+        " Praesent ut lectus sit amet enim varius convallis." +
+        " Aenean interdum elementum quam vitae rhoncus.",
       maxLines = 10,
     )
     Spacer(modifier = Modifier.height(40.dp))
@@ -87,7 +88,7 @@ fun TimeBoxCard(modifier: Modifier = Modifier) {
   ) {
     Box(
       modifier = modifier
-        .padding(16.dp)
+        .padding(horizontal = 16.dp)
         .wrapContentSize()
     ) {
       Column(
@@ -100,7 +101,7 @@ fun TimeBoxCard(modifier: Modifier = Modifier) {
         ) {
           Text.Headline(text = "Coding project")
           Spacer(modifier = Modifier.height(4.dp))
-          Text.DefaultLarge(text = "23.07.2025")
+          Text.DefaultLarge(text = "Deadline in 23.07.2025")
         }
         Spacer(modifier = Modifier.height(20.dp))
         TimerRowDetails()
@@ -141,10 +142,11 @@ fun TimerBoxDetails(
         modifier = modifier
           .width(70.dp)
           .wrapContentHeight()
-          .padding(12.dp),
+          .padding(start = 12.dp, end = 12.dp, bottom = 6.dp),
         contentAlignment = Alignment.Center
       ) {
         Text.Headline(
+          modifier = Modifier.wrapContentHeight(),
           text = time.uppercase(Locale.getDefault()),
           textColor = MaterialTheme.colorScheme.primary,
           fontFamily = bigShouldersDisplayBlack

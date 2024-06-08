@@ -3,6 +3,8 @@ package com.boryans.deadline.ui.components
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,12 +18,13 @@ fun DeadlineButton(
   modifier: Modifier = Modifier,
   onClick: () -> Unit,
 ) {
-  OutlinedButton(
+  Button(
     modifier = modifier
       .fillMaxWidth()
       .height(56.dp),
     onClick = onClick,
-    shape = RoundedCornerShape(10.dp)
+    shape = RoundedCornerShape(6.dp),
+    colors = ButtonDefaults.buttonColors()
   ) {
     Text.HeadlineSmall(text = text)
   }
