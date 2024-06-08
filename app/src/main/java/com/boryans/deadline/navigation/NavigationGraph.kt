@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.boryans.deadline.ui.screen.adddeadline.addDeadlineScreen
 import com.boryans.deadline.ui.screen.details.deadlineDetailsScreen
-import com.boryans.deadline.ui.screen.homeScreen
+import com.boryans.deadline.ui.screen.home.homeScreen
 import com.boryans.deadline.ui.screen.adddeadline.navigateToAddDeadlineScreen
 import com.boryans.deadline.ui.screen.details.navigateToDeadlineDetails
 

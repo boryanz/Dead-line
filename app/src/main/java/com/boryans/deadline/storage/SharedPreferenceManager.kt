@@ -17,4 +17,8 @@ object SharedPreferenceManager {
   fun remove(key: String) {
     sharedPreferences.edit().remove(key).apply()
   }
+
+  fun getAll(): Map<String, *> {
+    return sharedPreferences.all
+  }
 }
