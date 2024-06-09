@@ -8,13 +8,13 @@ import androidx.room.PrimaryKey
 import com.boryans.deadline.data.model.Deadline
 import com.boryans.deadline.utils.convertMillisToLocalDate
 import com.boryans.deadline.utils.dateToString
-import java.util.UUID
+import java.util.TimeZone
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Entity(tableName = "deadline_entity")
 data class DeadlineEntity(
   @PrimaryKey
-  val uuid: UUID,
+  val uuid: String,
   @ColumnInfo("title")
   val title: String,
   @ColumnInfo("description")
@@ -24,9 +24,13 @@ data class DeadlineEntity(
 )
 
 @RequiresApi(Build.VERSION_CODES.O)
+
 fun DeadlineEntity.toExternalModel(): Deadline {
-  val now = System.currentTimeMillis()
-  val diff = timestamp.toLong() - now
+  val currentMillisUTC: Long = System.currentTimeMillis()
+  val timezoneOffsetMillis = TimeZone.getDefault().getOffset(currentMillisUTC)
+  val currentMillisDeviceTime = currentMillisUTC + timezoneOffsetMillis
+
+  val diff = timestamp.toLong() - currentMillisDeviceTime
 
   val seconds = diff / 1000 % 60
   val minutes = diff / (1000 * 60) % 60
@@ -41,12 +45,14 @@ fun DeadlineEntity.toExternalModel(): Deadline {
   val secondsRemaining = getFormattedTime(seconds)
 
   return Deadline(
+    id = uuid,
     title = this.title,
     fullDate = dateAsString,
     daysRemaining = daysRemaining,
     hoursRemaining = hoursRemaining,
     minutesRemaining = minutesRemaining,
-    secondsRemaining = secondsRemaining
+    secondsRemaining = secondsRemaining,
+    description = description
   )
 }
 

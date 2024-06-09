@@ -16,45 +16,21 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import com.boryans.deadline.navigation.Route
 import com.boryans.deadline.ui.components.DeadlineButton
 import com.boryans.deadline.ui.components.Text
-import com.boryans.deadline.ui.theme.DeadlineTheme
 import com.boryans.deadline.ui.theme.bigShouldersDisplayBlack
 import java.util.Locale
 
-fun NavGraphBuilder.deadlineDetailsScreen() {
-  composable<Route.DeadlineDetails> {
-    DeadlineDetailsScreen()
-  }
-}
-
-@Composable
-fun DeadlineDetailsScreen(
-  modifier: Modifier = Modifier,
-) {
-  Surface {
-    Scaffold { paddingValues ->
-      Surface(modifier = modifier.fillMaxSize()) {
-        DeadlineContent(paddingValues = paddingValues, onClick = {})
-      }
-    }
-  }
-}
-
 @Composable
 fun DeadlineContent(
+  uiState: DeadlineDetailsUiState,
   paddingValues: PaddingValues,
   onClick: () -> Unit,
 ) {
@@ -66,15 +42,15 @@ fun DeadlineContent(
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Top
   ) {
-    TimeBoxCard()
+    TimeBoxCard(uiState)
     Spacer(modifier = Modifier.height(20.dp))
     Text.Default(
-      modifier = Modifier.padding(horizontal = 12.dp),
-      text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
-        " Nulla interdum lectus mauris, a ullamcorper diamat." +
-        " Praesent ut lectus sit amet enim varius convallis." +
-        " Aenean interdum elementum quam vitae rhoncus.",
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 12.dp),
+      text = uiState.deadline?.description.orEmpty(),
       maxLines = 10,
+      textAlign = TextAlign.Start
     )
     Spacer(modifier = Modifier.height(40.dp))
     DeadlineButton(text = "Edit", onClick = onClick)
@@ -82,7 +58,10 @@ fun DeadlineContent(
 }
 
 @Composable
-fun TimeBoxCard(modifier: Modifier = Modifier) {
+fun TimeBoxCard(
+  uiState: DeadlineDetailsUiState,
+  modifier: Modifier = Modifier,
+) {
   Surface(
     shape = RoundedCornerShape(10.dp)
   ) {
@@ -99,30 +78,33 @@ fun TimeBoxCard(modifier: Modifier = Modifier) {
           modifier = Modifier.fillMaxWidth(),
           horizontalAlignment = Alignment.Start
         ) {
-          Text.Headline(text = "Coding project")
+          Text.HeadlineSmall(text = uiState.deadline?.description.orEmpty())
           Spacer(modifier = Modifier.height(4.dp))
-          Text.DefaultLarge(text = "Deadline in 23.07.2025")
+          Text.DefaultLarge(text = "Deadline in ${uiState.deadline?.fullDate.orEmpty()}")
         }
         Spacer(modifier = Modifier.height(20.dp))
-        TimerRowDetails()
+        TimerRowDetails(uiState)
       }
     }
   }
 }
 
 @Composable
-fun TimerRowDetails(modifier: Modifier = Modifier) {
+fun TimerRowDetails(
+  uiState: DeadlineDetailsUiState,
+  modifier: Modifier = Modifier,
+) {
   Row(
     modifier = modifier.fillMaxWidth(),
     horizontalArrangement = Arrangement.SpaceAround
   ) {
-    TimerBoxDetails(title = "days", time = "22")
+    TimerBoxDetails(title = "days", time = uiState.deadline?.daysRemaining.orEmpty())
     Spacer(modifier = Modifier.width(8.dp))
-    TimerBoxDetails(title = "hours", time = "12")
+    TimerBoxDetails(title = "hours", time = uiState.deadline?.hoursRemaining.orEmpty())
     Spacer(modifier = Modifier.width(8.dp))
-    TimerBoxDetails(title = "mins", time = "45")
+    TimerBoxDetails(title = "mins", time = uiState.deadline?.minutesRemaining.orEmpty())
     Spacer(modifier = Modifier.width(8.dp))
-    TimerBoxDetails(title = "sec", time = "45")
+    TimerBoxDetails(title = "sec", time = uiState.deadline?.secondsRemaining.orEmpty())
 
   }
 }
@@ -158,20 +140,5 @@ fun TimerBoxDetails(
       text = title.uppercase(Locale.getDefault()),
       textColor = Color.Gray
     )
-  }
-
-
-}
-
-fun NavHostController.navigateToDeadlineDetails(deadlineId: String) {
-  navigate(route = Route.DeadlineDetails(deadlineId = deadlineId))
-}
-
-
-@Preview
-@Composable
-private fun DeadlineDetailsPreview() {
-  DeadlineTheme {
-    DeadlineDetailsScreen()
   }
 }

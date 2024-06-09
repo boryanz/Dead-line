@@ -20,7 +20,7 @@ fun DeadlineNavigationGraph(
   NavHost(navController = navController, startDestination = Route.Home) {
     homeScreen(
       onNavigateToAddDeadline = { navController.navigateToAddDeadlineScreen() },
-      onNavigateToDeadlineDetails = { navController.navigateToDeadlineDetails("12") }
+      onNavigateToDeadlineDetails = { navController.navigateToDeadlineDetails(it) }
     )
     addDeadlineScreen()
     deadlineDetailsScreen()

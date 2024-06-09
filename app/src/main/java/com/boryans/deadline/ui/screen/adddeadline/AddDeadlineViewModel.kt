@@ -51,7 +51,7 @@ class AddDeadlineViewModel(
           addDeadlineUseCase(
             application = uiEvent.context,
             deadlineEntity = DeadlineEntity(
-              uuid = UUID.randomUUID(),
+              uuid = UUID.randomUUID().toString(),
               title = title.value,
               description = description.value,
               timestamp = timestamp.value

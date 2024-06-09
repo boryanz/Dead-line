@@ -11,7 +11,6 @@ import androidx.lifecycle.viewModelScope
 import com.boryans.deadline.data.model.Deadline
 import com.boryans.deadline.domain.GetRunningDeadlinesUseCase
 import com.boryans.deadline.ui.DeadlineViewModel
-import java.util.UUID
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -29,6 +28,7 @@ class HomeViewModel(
     LaunchedEffect(Unit) {
       startCounters(context)
     }
+
     return HomeUiState(deadlinesState.value)
   }
 

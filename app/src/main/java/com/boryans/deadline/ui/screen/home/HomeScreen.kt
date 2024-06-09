@@ -17,7 +17,7 @@ import com.boryans.deadline.ui.theme.DeadlineTheme
 fun HomeScreen(
   uiState: HomeUiState,
   onNavigateToAddDeadline: () -> Unit,
-  onNavigateToDeadlineDetails: () -> Unit,
+  onNavigateToDeadlineDetails: (id: String) -> Unit,
   modifier: Modifier = Modifier,
 ) {
   Surface {
@@ -42,7 +42,7 @@ fun HomeScreen(
       ) {
         HomeContent(
           uiState = uiState,
-          onDeadlineItemClick = onNavigateToDeadlineDetails
+          onDeadlineItemClick = { onNavigateToDeadlineDetails(it) }
         )
       }
     }

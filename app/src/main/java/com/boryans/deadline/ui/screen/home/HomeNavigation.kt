@@ -10,7 +10,7 @@ import com.boryans.deadline.ui.screenScopedViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.homeScreen(
   onNavigateToAddDeadline: () -> Unit,
-  onNavigateToDeadlineDetails: () -> Unit,
+  onNavigateToDeadlineDetails: (deadlineId: String) -> Unit,
 ) {
   composable<Route.Home> {
     val viewModel: HomeViewModel = screenScopedViewModel()
@@ -19,7 +19,7 @@ fun NavGraphBuilder.homeScreen(
     HomeScreen(
       uiState = uiState,
       onNavigateToAddDeadline = onNavigateToAddDeadline,
-      onNavigateToDeadlineDetails = onNavigateToDeadlineDetails
+      onNavigateToDeadlineDetails = { onNavigateToDeadlineDetails(it) }
     )
   }
 }

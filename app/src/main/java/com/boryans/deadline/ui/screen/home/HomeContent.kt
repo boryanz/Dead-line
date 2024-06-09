@@ -8,13 +8,13 @@ import com.boryans.deadline.ui.components.DeadlineItem
 @Composable
 fun HomeContent(
   uiState: HomeUiState,
-  onDeadlineItemClick: () -> Unit,
+  onDeadlineItemClick: (deadlineId: String) -> Unit,
 ) {
   LazyColumn {
     items(uiState.deadlines) {
       DeadlineItem(
         deadline = it,
-        onDeadlineItemClick = onDeadlineItemClick
+        onDeadlineItemClick = {onDeadlineItemClick(it.id)}
       )
     }
   }

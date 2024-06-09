@@ -15,4 +15,7 @@ interface DeadlineDao {
   @Query("SELECT * FROM deadline_entity")
   fun getAllDeadlines(): Flow<List<DeadlineEntity>>
 
+  @Query("SELECT * FROM deadline_entity WHERE uuid = :uuid")
+  fun getDeadline(uuid: String): Flow<DeadlineEntity>
+
 }
