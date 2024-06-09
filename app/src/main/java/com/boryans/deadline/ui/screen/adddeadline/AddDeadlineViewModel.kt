@@ -1,16 +1,23 @@
 package com.boryans.deadline.ui.screen.adddeadline
 
+import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import com.boryans.deadline.storage.SharedPreferenceManager
+import androidx.lifecycle.viewModelScope
+import com.boryans.deadline.domain.AddDeadlineUseCase
+import com.boryans.deadline.storage.db.entities.DeadlineEntity
 import com.boryans.deadline.ui.DeadlineViewModel
+import java.util.UUID
+import kotlinx.coroutines.launch
 
 class AddDeadlineViewModel(
-  private val sharedPrefs: SharedPreferenceManager = SharedPreferenceManager,
+  private val addDeadlineUseCase: AddDeadlineUseCase = AddDeadlineUseCase(),
 ) : DeadlineViewModel<AddDeadlineUiState, AddDeadlineEvent>() {
 
   private val title = mutableStateOf("")
-  private val date = mutableStateOf("")
+  private val timestamp = mutableStateOf("")
   private val description = mutableStateOf("")
   private val isSuccess = mutableStateOf(false)
 
@@ -18,12 +25,13 @@ class AddDeadlineViewModel(
   override fun getUiState(): AddDeadlineUiState {
     return AddDeadlineUiState(
       title = title.value,
-      date = date.value,
+      date = timestamp.value,
       shortDescription = description.value,
       isSuccessfullyAddedEvent = isSuccess.value
     )
   }
 
+  @RequiresApi(Build.VERSION_CODES.O)
   override fun onEvent(uiEvent: AddDeadlineEvent) {
     when (uiEvent) {
       is AddDeadlineEvent.AddTitle -> {
@@ -31,16 +39,26 @@ class AddDeadlineViewModel(
       }
 
       is AddDeadlineEvent.AddDate -> {
-        date.value = uiEvent.date
+        timestamp.value = uiEvent.date
       }
 
       is AddDeadlineEvent.AddDescription -> {
         description.value = uiEvent.description
       }
 
-      AddDeadlineEvent.AddDeadline -> {
-        sharedPrefs.put(title.value, date.value)
-        isSuccess.value = true
+      is AddDeadlineEvent.AddDeadline -> {
+        viewModelScope.launch {
+          addDeadlineUseCase(
+            application = uiEvent.context,
+            deadlineEntity = DeadlineEntity(
+              uuid = UUID.randomUUID(),
+              title = title.value,
+              description = description.value,
+              timestamp = timestamp.value
+            )
+          )
+          isSuccess.value = true
+        }
       }
     }
   }
@@ -57,5 +75,5 @@ sealed interface AddDeadlineEvent {
   data class AddTitle(val title: String) : AddDeadlineEvent
   data class AddDate(val date: String) : AddDeadlineEvent
   data class AddDescription(val description: String) : AddDeadlineEvent
-  data object AddDeadline : AddDeadlineEvent
+  data class AddDeadline(val context: Context) : AddDeadlineEvent
 }
