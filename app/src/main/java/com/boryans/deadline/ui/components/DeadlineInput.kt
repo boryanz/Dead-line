@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.boryans.deadline.ui.screen.adddeadline.AddDeadlineUiState
 import com.boryans.deadline.ui.theme.DeadlineTheme
 import com.boryans.deadline.utils.convertMillisToLocalDate
 import com.boryans.deadline.utils.dateToString
@@ -65,6 +66,7 @@ fun DeadlineInput(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DeadlineDateInput(
+  uiState: AddDeadlineUiState,
   onConfirmDate: (timeInMillis: String) -> Unit,
   modifier: Modifier = Modifier,
 ) {
@@ -75,7 +77,7 @@ fun DeadlineDateInput(
 
   val dateAsString = millisToLocalDate?.let {
     dateToString(millisToLocalDate)
-  }.orEmpty()
+  } ?: uiState.date
 
   var showDatePicker by remember {
     mutableStateOf(false)

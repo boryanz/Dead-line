@@ -36,8 +36,8 @@ fun DeadlineEntity.toExternalModel(): Deadline {
   val minutes = diff / (1000 * 60) % 60
   val hours = diff / (1000 * 60 * 60) % 24
   val days = diff / (1000 * 60 * 60 * 24)
-
   val localDate = convertMillisToLocalDate(timestamp.toLong())
+
   val dateAsString = dateToString(localDate)
   val daysRemaining = getFormattedTime(days)
   val hoursRemaining = getFormattedTime(hours)
@@ -57,6 +57,11 @@ fun DeadlineEntity.toExternalModel(): Deadline {
 }
 
 private fun getFormattedTime(timestamp: Long): String {
-  return if (timestamp < 10) "0$timestamp" else "$timestamp"
+  return when {
+    timestamp < 0 -> "00"
+    else -> {
+      if (timestamp < 10) "0$timestamp" else "$timestamp"
+    }
+  }
 }
 

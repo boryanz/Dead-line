@@ -29,7 +29,10 @@ fun AddDeadlineContent(
   ) {
     DeadlineInput(labelText = "Title", value = uiState.title, onValueChange = { onTitleInput(it) })
     Spacer(modifier = Modifier.height(8.dp))
-    DeadlineDateInput(onConfirmDate = { onDateInput(it) })
+    DeadlineDateInput(
+      uiState = uiState,
+      onConfirmDate = { onDateInput(it) }
+    )
     Spacer(modifier = Modifier.height(8.dp))
     DeadlineInput(
       modifier = Modifier.height(200.dp),
