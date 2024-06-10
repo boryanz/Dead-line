@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.DismissDirection.EndToStart
+import androidx.compose.material3.DismissDirection.StartToEnd
 import androidx.compose.material3.DismissState
 import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,7 +44,7 @@ fun <T> SwipeToDeleteContainer(
   }
   val state = rememberDismissState(
     confirmValueChange = { value ->
-      if (value == DismissValue.DismissedToEnd) {
+      if (value == DismissValue.DismissedToStart) {
         isRemoved = true
         true
       } else {
@@ -89,7 +90,7 @@ fun DeleteBackground(
      progress in 0.2F..0.9F
   }
 
-  val color = if (swipeDismissState.dismissDirection == EndToStart) {
+  val color = if (swipeDismissState.dismissDirection == StartToEnd) {
     Color.Transparent
   } else Color.Transparent
 
