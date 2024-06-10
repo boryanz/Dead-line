@@ -7,15 +7,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.boryans.deadline.domain.AddDeadlineUseCase
+import com.boryans.deadline.domain.GetDeadlineUseCase
 import com.boryans.deadline.storage.db.entities.DeadlineEntity
 import com.boryans.deadline.ui.DeadlineViewModel
 import java.util.UUID
 import kotlinx.coroutines.launch
 
-class AddDeadlineViewModel(
+open class AddDeadlineViewModel(
   private val addDeadlineUseCase: AddDeadlineUseCase = AddDeadlineUseCase(),
+  private val getDeadlineUseCase: GetDeadlineUseCase = GetDeadlineUseCase(),
 ) : DeadlineViewModel<AddDeadlineUiState, AddDeadlineEvent>() {
 
+  private val deadlineId = mutableStateOf("")
   private val title = mutableStateOf("")
   private val timestamp = mutableStateOf("")
   private val description = mutableStateOf("")
@@ -51,7 +54,7 @@ class AddDeadlineViewModel(
           addDeadlineUseCase(
             application = uiEvent.context,
             deadlineEntity = DeadlineEntity(
-              uuid = UUID.randomUUID().toString(),
+              uuid = deadlineId.value.ifEmpty { UUID.randomUUID().toString() },
               title = title.value,
               description = description.value,
               timestamp = timestamp.value
@@ -60,11 +63,25 @@ class AddDeadlineViewModel(
           isSuccess.value = true
         }
       }
+
+      is AddDeadlineEvent.EditExistingDeadline -> {
+        if (uiEvent.id != null) {
+          viewModelScope.launch {
+            getDeadlineUseCase(context = uiEvent.context, uuid = uiEvent.id)?.collect { deadline ->
+              deadlineId.value = deadline.id
+              title.value = deadline.title
+              timestamp.value = deadline.fullDate
+              description.value = deadline.description.orEmpty()
+            }
+          }
+        }
+      }
     }
   }
 }
 
 data class AddDeadlineUiState(
+  val id: String? = null,
   val title: String,
   val date: String,
   val shortDescription: String,
@@ -76,4 +93,5 @@ sealed interface AddDeadlineEvent {
   data class AddDate(val date: String) : AddDeadlineEvent
   data class AddDescription(val description: String) : AddDeadlineEvent
   data class AddDeadline(val context: Context) : AddDeadlineEvent
+  data class EditExistingDeadline(val id: String?, val context: Context) : AddDeadlineEvent
 }

@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.boryans.deadline.data.model.Deadline
 import com.boryans.deadline.ui.components.DeadlineButton
 import com.boryans.deadline.ui.components.Text
 import com.boryans.deadline.ui.theme.bigShouldersDisplayBlack
@@ -32,7 +33,7 @@ import java.util.Locale
 fun DeadlineContent(
   uiState: DeadlineDetailsUiState,
   paddingValues: PaddingValues,
-  onClick: () -> Unit,
+  onClick: (deadline: Deadline) -> Unit,
 ) {
   Column(
     modifier = Modifier
@@ -53,7 +54,7 @@ fun DeadlineContent(
       textAlign = TextAlign.Start
     )
     Spacer(modifier = Modifier.height(40.dp))
-    DeadlineButton(text = "Edit", onClick = onClick)
+    DeadlineButton(text = "Edit", onClick = { uiState.deadline?.let(onClick) })
   }
 }
 
@@ -124,10 +125,10 @@ fun TimerBoxDetails(
         modifier = modifier
           .width(70.dp)
           .wrapContentHeight()
-          .padding(start = 12.dp, end = 12.dp, bottom = 6.dp),
+          .padding(start = 6.dp, end = 6.dp, bottom = 6.dp),
         contentAlignment = Alignment.Center
       ) {
-        Text.Headline(
+        Text.HeadlineSmall(
           modifier = Modifier.wrapContentHeight(),
           text = time.uppercase(Locale.getDefault()),
           textColor = MaterialTheme.colorScheme.primary,
@@ -136,7 +137,7 @@ fun TimerBoxDetails(
       }
     }
     Spacer(modifier = Modifier.height(3.dp))
-    Text.DefaultLarge(
+    Text.Default(
       text = title.uppercase(Locale.getDefault()),
       textColor = Color.Gray
     )

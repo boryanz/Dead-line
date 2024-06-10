@@ -8,8 +8,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.Lifecycle
 import com.boryans.deadline.ui.components.AppBar
 import com.boryans.deadline.ui.theme.DeadlineTheme
+import com.boryans.deadline.utils.OnLifecycleEvent
 
 @Composable
 fun AddDeadlineScreen(
@@ -20,6 +22,7 @@ fun AddDeadlineScreen(
   onAddDeadlineClicked: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
+
   Surface {
     Scaffold(
       topBar = {
@@ -44,12 +47,24 @@ fun AddDeadlineScreen(
       }
     }
   }
+
 }
 
 @Preview
 @Composable
 private fun AddDeadlinePreview() {
   DeadlineTheme {
-    //AddDeadlineScreen()
+    AddDeadlineScreen(
+      uiState = AddDeadlineUiState(
+        title = "Title",
+        date = "12.03.2024",
+        isSuccessfullyAddedEvent = true,
+        shortDescription = "Short description"
+      ),
+      onDescriptionInput = {},
+      onAddDeadlineClicked = {},
+      onDateInput = {},
+      onTitleInput = {},
+    )
   }
 }

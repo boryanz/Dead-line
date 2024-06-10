@@ -10,5 +10,5 @@ sealed interface Route {
   data class DeadlineDetails(val deadlineId: String) : Route
 
   @Serializable
-  data object AddDeadline : Route
+  data class AddDeadline(val id: String? = null) : Route
 }

@@ -76,4 +76,5 @@ data class DeadlineDetailsUiState(val deadline: Deadline? = null)
 
 sealed interface DeadlineDetailsUiEvent {
   data object RemoveDeadline : DeadlineDetailsUiEvent
+
 }

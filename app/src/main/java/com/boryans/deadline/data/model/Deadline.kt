@@ -1,5 +1,6 @@
 package com.boryans.deadline.data.model
 
+
 data class Deadline(
   val id: String,
   val title: String,
