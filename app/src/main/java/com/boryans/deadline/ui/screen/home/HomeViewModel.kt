@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewModelScope
 import com.boryans.deadline.data.model.Deadline
+import com.boryans.deadline.domain.DeleteDeadlineUseCase
 import com.boryans.deadline.domain.GetRunningDeadlinesUseCase
 import com.boryans.deadline.ui.DeadlineViewModel
 import kotlinx.coroutines.delay
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 @RequiresApi(Build.VERSION_CODES.O)
 class HomeViewModel(
   private val getDeadlinesUseCase: GetRunningDeadlinesUseCase = GetRunningDeadlinesUseCase(),
+  private val deleteDeadlineUseCase: DeleteDeadlineUseCase = DeleteDeadlineUseCase(),
 ) : DeadlineViewModel<HomeUiState, HomeUiEvent>() {
 
   private val deadlinesState = mutableStateOf(emptyList<Deadline>())
@@ -35,8 +37,9 @@ class HomeViewModel(
   override fun onEvent(uiEvent: HomeUiEvent) {
     when (uiEvent) {
       is HomeUiEvent.DeadlineSwiped -> {
-        //sharedPrefs.remove(uiEvent.deadlineKey)
-        //   updateCountersState(uiEvent.deadlineUuid, uiEvent.context)
+        viewModelScope.launch {
+          deleteDeadlineUseCase(uiEvent.deadlineId, uiEvent.context)
+        }
       }
     }
   }
@@ -46,7 +49,7 @@ class HomeViewModel(
       val deadlines = getDeadlinesUseCase(context)
       deadlines?.collect { activeDeadlines ->
         deadlinesState.value =
-          activeDeadlines.sortedByDescending { deadline -> deadline.daysRemaining }
+          activeDeadlines.sortedBy { deadline -> deadline.daysRemaining.toInt() }
       }
     }
   }
@@ -62,5 +65,7 @@ class HomeViewModel(
 data class HomeUiState(val deadlines: List<Deadline>)
 
 sealed interface HomeUiEvent {
-  data class DeadlineSwiped(val deadlineUuid: String, val context: Context) : HomeUiEvent
+  val context: Context
+
+  data class DeadlineSwiped(val deadlineId: String, override val context: Context) : HomeUiEvent
 }

@@ -78,7 +78,7 @@ fun TimeBoxCard(
           modifier = Modifier.fillMaxWidth(),
           horizontalAlignment = Alignment.Start
         ) {
-          Text.HeadlineSmall(text = uiState.deadline?.description.orEmpty())
+          Text.HeadlineSmall(text = uiState.deadline?.title.orEmpty())
           Spacer(modifier = Modifier.height(4.dp))
           Text.DefaultLarge(text = "Deadline in ${uiState.deadline?.fullDate.orEmpty()}")
         }

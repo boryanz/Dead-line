@@ -18,6 +18,7 @@ fun HomeScreen(
   uiState: HomeUiState,
   onNavigateToAddDeadline: () -> Unit,
   onNavigateToDeadlineDetails: (id: String) -> Unit,
+  onDeleteDeadline: (id: String) -> Unit,
   modifier: Modifier = Modifier,
 ) {
   Surface {
@@ -42,7 +43,8 @@ fun HomeScreen(
       ) {
         HomeContent(
           uiState = uiState,
-          onDeadlineItemClick = { onNavigateToDeadlineDetails(it) }
+          onDeadlineItemClick = { onNavigateToDeadlineDetails(it) },
+          onSwipedDeadline = { onDeleteDeadline(it) }
         )
       }
     }
@@ -56,7 +58,8 @@ private fun HomePreview() {
     HomeScreen(
       uiState = HomeUiState(listOf(dummyDeadline)),
       onNavigateToAddDeadline = { /*TODO*/ },
-      onNavigateToDeadlineDetails = {}
+      onNavigateToDeadlineDetails = {},
+      onDeleteDeadline = {}
     )
   }
 }
