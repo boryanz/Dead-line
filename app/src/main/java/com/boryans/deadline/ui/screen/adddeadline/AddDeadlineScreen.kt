@@ -1,18 +1,24 @@
 package com.boryans.deadline.ui.screen.adddeadline
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.Lifecycle
 import com.boryans.deadline.ui.components.AppBar
 import com.boryans.deadline.ui.theme.DeadlineTheme
-import com.boryans.deadline.utils.OnLifecycleEvent
+import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddDeadlineScreen(
   uiState: AddDeadlineUiState,
@@ -23,8 +29,14 @@ fun AddDeadlineScreen(
   modifier: Modifier = Modifier,
 ) {
 
+  val scope = rememberCoroutineScope()
+  val snackBarHostState = remember { SnackbarHostState() }
+
   Surface {
     Scaffold(
+      snackbarHost = {
+        SnackbarHost(hostState = snackBarHostState)
+      },
       topBar = {
         AppBar(
           title = "Add new deadline",
@@ -42,7 +54,12 @@ fun AddDeadlineScreen(
           onTitleInput = onTitleInput,
           onDateInput = onDateInput,
           onDescriptionInput = onDescriptionInput,
-          onAddDeadlineClicked = onAddDeadlineClicked
+          onAddDeadlineClicked = {
+            scope.launch {
+              snackBarHostState.showSnackbar("New deadline added.")
+            }
+            onAddDeadlineClicked()
+          }
         )
       }
     }
@@ -50,6 +67,7 @@ fun AddDeadlineScreen(
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
 private fun AddDeadlinePreview() {

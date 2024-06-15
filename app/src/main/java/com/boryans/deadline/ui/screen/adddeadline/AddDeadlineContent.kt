@@ -1,5 +1,7 @@
 package com.boryans.deadline.ui.screen.adddeadline
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +15,7 @@ import com.boryans.deadline.ui.components.DeadlineButton
 import com.boryans.deadline.ui.components.DeadlineDateInput
 import com.boryans.deadline.ui.components.DeadlineInput
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddDeadlineContent(
   uiState: AddDeadlineUiState,

@@ -1,5 +1,7 @@
 package com.boryans.deadline.ui.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -63,6 +65,7 @@ fun DeadlineInput(
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DeadlineDateInput(
