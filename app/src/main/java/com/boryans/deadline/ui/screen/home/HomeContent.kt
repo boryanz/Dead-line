@@ -2,17 +2,10 @@ package com.boryans.deadline.ui.screen.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import com.boryans.deadline.R
 import com.boryans.deadline.ui.components.DeadlineItem
 import com.boryans.deadline.ui.components.SwipeToDeleteContainer
 import com.boryans.deadline.ui.components.Text
@@ -52,11 +45,6 @@ private fun EmptyDeadlinesContent() {
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Center
   ) {
-    Icon(
-      painter = painterResource(id = R.drawable.ic_deadline),
-      contentDescription = "deadline icon"
-    )
-    Spacer(modifier = Modifier.height(32.dp))
     Text.Default(text = "No goals to crush? Let's add some.")
   }
 }
