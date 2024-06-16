@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -56,9 +57,18 @@ fun AddDeadlineScreen(
           onDescriptionInput = onDescriptionInput,
           onAddDeadlineClicked = {
             scope.launch {
-              snackBarHostState.showSnackbar("New deadline added.")
+              if (uiState.title.isBlank() || uiState.date.isBlank()) {
+                snackBarHostState.showSnackbar(
+                  message = "Missing information!",
+                  duration = SnackbarDuration.Short,
+                )
+              } else {
+                snackBarHostState.showSnackbar("New deadline added.")
+              }
             }
-            onAddDeadlineClicked()
+            if (uiState.title.isNotBlank() || uiState.date.isNotBlank()) {
+              onAddDeadlineClicked()
+            }
           }
         )
       }
