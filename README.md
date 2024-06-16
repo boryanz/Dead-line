@@ -1,6 +1,6 @@
 # Deadline App
 
-![deadline_app.png](..%2F..%2FDesktop%2Fdeadline_app.png)
+![deadline_app.png](app%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fdeadline_app.png)
 
 "Whiterose was right. We run from one deadline to the next" - Mr.Robot
 
